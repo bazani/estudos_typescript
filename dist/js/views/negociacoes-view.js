@@ -1,7 +1,5 @@
-export class NegociacoesView {
-    constructor(selector) {
-        this.elemento = document.querySelector(selector);
-    }
+import { View } from "./view.js";
+export class NegociacoesView extends View {
     template(listaNegociacoes) {
         return `
       <table class="table table-hover table-bordered">
@@ -16,17 +14,14 @@ export class NegociacoesView {
           ${listaNegociacoes.lista().map(negociacao => {
             return `
               <tr>
-                <td>${negociacao.data}</td>
+                <td>${new Intl.DateTimeFormat().format(negociacao.data)}</td>
                 <td>${negociacao.quantidade}</td>
                 <td>${negociacao.valor}</td>
               </tr>
             `;
-        })}
+        }).join('')}
         </tbody>
       </table>
     `;
-    }
-    update(listaNegociacoes) {
-        this.elemento.innerHTML = this.template(listaNegociacoes);
     }
 }
