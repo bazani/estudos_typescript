@@ -13,9 +13,11 @@ export class NegociacaoController {
   private mensagemVew = new MensagemView('#mensagemView');
 
   constructor() {
-    this.inputData = document.querySelector('#data');
-    this.inputQuantidade = document.querySelector('#quantidade');
-    this.inputValor = document.querySelector('#valor');
+    // ao utilizar as HTMLInputElement fazendo o cast implicito da var
+    // <HTMLInputElement> tbm funciona como cast implicito, porem nao eh recomendado pelo time do typescript
+    this.inputData = <HTMLInputElement> document.querySelector('#data');
+    this.inputQuantidade = document.querySelector('#quantidade') as HTMLInputElement;
+    this.inputValor = document.querySelector('#valor') as HTMLInputElement;
     this.negociacoesView.update(this.negociacoes);
   }
 

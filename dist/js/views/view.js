@@ -1,10 +1,13 @@
-/* Tipando a classe View com um genérico (<T>) permite que, ao herdar ela
-podemos passar qual o tipo do dado esperamos como parametro nos metodos
-update e template */
 export class View {
     constructor(seletor, escapar) {
         this.escapar = false;
-        this.elemento = document.querySelector(seletor);
+        const elemento = document.querySelector(seletor);
+        if (elemento) {
+            this.elemento = document.querySelector(seletor);
+        }
+        else {
+            throw new Error(`Seletor ${seletor} não existe no DOM. Verifique o nome do seletor antes de continuar.`);
+        }
         if (escapar) {
             this.escapar = escapar;
         }
