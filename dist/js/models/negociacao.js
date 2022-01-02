@@ -19,4 +19,13 @@ export class Negociacao {
     get volume() {
         return this.quantidade$ * this.valor$;
     }
+    /* metodos static sao metodos da classe, que podem ser acessados sem a necessidade
+    de instanciar a classe antes */
+    static criaDe(dataS, quantidadeS, valorS) {
+        const exp = /-/g;
+        const data = new Date(dataS.replace(exp, ','));
+        const quantidade = parseInt(quantidadeS);
+        const valor = parseFloat(valorS);
+        return new Negociacao(data, quantidade, valor);
+    }
 }
