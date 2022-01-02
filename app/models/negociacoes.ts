@@ -6,13 +6,13 @@ export class Negociacoes {
 
   constructor() {}
 
-  adiciona(negociacao: Negociacao):void {
+  public adiciona(negociacao: Negociacao):void {
     this.negociacoes.push(negociacao);
   }
 
   // ReadonlyArray omite os metodos que alteram o array
   // lista(): ReadonlyArray<Negociacao> { // maneira explicita
-  lista(): readonly Negociacao[] { //maneira abreviada
+  public lista(): readonly Negociacao[] { //maneira abreviada
     // jeito javascript de resolver problema de referencia a instancia privada
     // return [...this.negociacoes];
     return [...this.negociacoes];

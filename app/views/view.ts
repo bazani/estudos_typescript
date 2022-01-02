@@ -10,9 +10,11 @@ export abstract class View<T> {
     this.elemento = document.querySelector(seletor);
   }
 
-  abstract template(model: T): string;
+  /* Utilizando o modificador protected na classe pai e nas filhas escondemos o método template
+  que não precisa ser utilizado pelas instancias das classes filhas */
+  protected abstract template(model: T): string;
 
-  update(model: T): void {
+  public update(model: T): void {
     const template = this.template(model);
     this.elemento.innerHTML = template;
   }
