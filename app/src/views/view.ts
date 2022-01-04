@@ -1,3 +1,6 @@
+import { inspect } from "../decorators/inspect.js";
+import { logarTempoDeExecucao } from "../decorators/logar-tempo-de-execucao.js";
+
 /* Tipando a classe View com um genérico (<T>) permite que, ao herdar ela
 podemos passar qual o tipo do dado esperamos como parametro nos metodos
 update e template */
@@ -26,8 +29,9 @@ export abstract class View<T> {
   que não precisa ser utilizado pelas instancias das classes filhas */
   protected abstract template(model: T): string;
 
+  @logarTempoDeExecucao(true)
+  @inspect
   public update(model: T): void {
-    const t1 = performance.now();
     let template = this.template(model);
 
     if (this.escapar) {
@@ -35,8 +39,5 @@ export abstract class View<T> {
     }
 
     this.elemento.innerHTML = template;
-    const t2 = performance.now();
-
-    console.log(`Tempo de execução do método update: ${(t2 - t1) / 1000} segundos`);
   }
 }

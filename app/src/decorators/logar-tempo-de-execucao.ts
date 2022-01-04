@@ -1,4 +1,4 @@
-export function logarTempoDeExecucao() {
+export function logarTempoDeExecucao(emSegundos: boolean = false) {
   return function (
     /**
      * Ao adicionar o decorator em um método estatico, o target é o construtor da classe
@@ -18,12 +18,21 @@ export function logarTempoDeExecucao() {
   ) {
     const metodoOriginal = descriptor.value;
 
-    descriptor.value = function () {
+    descriptor.value = function (...args: any[]) {
+      let divisor = 1;
+      let unidade = 'milisegundos';
+
+      if (emSegundos) {
+        divisor = 1000;
+        unidade = 'segundos';
+      }
+
       const t1 = performance.now(); 
-      // chama o metodo original
-      // metodoOriginal
+      // chama o metodo original passando o contexto original (this)
+      const retorno = metodoOriginal.apply(this, args);
       const t2 = performance.now();
-      console.log(`[${propertyKey}], tempo de execução ${(t2 - t1) / 1000}`);
+      console.log(`[${propertyKey}], tempo de execução ${(t2 - t1) / divisor} ${unidade}.`);
+      return retorno;
     };
 
     return descriptor;
