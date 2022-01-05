@@ -1,11 +1,10 @@
 import { Imprimivel } from "../utils/imprimivel.js";
 
-export class Negociacao extends Imprimivel{
+export class Negociacao implements Imprimivel{
   constructor(
     private data$: Date,
     private quantidade$: number,
     private valor$: number) {
-      super();
   }
 
   /* metodos static sao metodos da classe, que podem ser acessados sem a necessidade

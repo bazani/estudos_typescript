@@ -1,11 +1,11 @@
 import { Imprimivel } from "../utils/imprimivel.js";
 import { Negociacao } from "./negociacao.js";
 
-export class Negociacoes extends Imprimivel{
+export class Negociacoes implements Imprimivel{
   // private negociacoes: Array<Negociacao> = []; //maneira explicita
   private negociacoes: Negociacao[] = []; //maneira abreviada
 
-  constructor() { super(); }
+  constructor() { }
 
   public adiciona(negociacao: Negociacao):void {
     this.negociacoes.push(negociacao);
