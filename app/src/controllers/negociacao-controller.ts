@@ -43,6 +43,27 @@ export class NegociacaoController {
     this.atualizaView();
   }
 
+  public importaDados(): void {
+    const api = 'http://localhost:8080/dados';
+
+    fetch(api)
+      .then(resp => resp.json())
+      .then((dados: any[]) => {
+        return dados.map(dado => {
+          return new Negociacao(new Date(), dado.vezes, dado.montante);
+        });
+      })
+      .then((dadosNegociacoes: Negociacao[]) => {
+        for(let negocio of dadosNegociacoes) {
+          this.negociacoes.adiciona(negocio);
+        }
+        this.atualizaView();
+      })
+      .catch(err => {
+        throw new Error(`Não foi possível acessar a api: ${api}`);
+      });
+  }
+
   private isDiaUtil(data: Date): boolean {
     return data.getDay() > DiasDaSemana.DOMINGO && data.getDay() < DiasDaSemana.SABADO;
   }
