@@ -1,8 +1,26 @@
-export class Negociacao {
+import { Imprimivel } from "../utils/imprimivel.js";
+
+export class Negociacao extends Imprimivel{
   constructor(
     private data$: Date,
     private quantidade$: number,
     private valor$: number) {
+      super();
+  }
+
+  /* metodos static sao metodos da classe, que podem ser acessados sem a necessidade
+  de instanciar a classe antes */
+  public static criaDe(dataS: string, quantidadeS: string, valorS: string): Negociacao {
+    const exp = /-/g;
+    const data = new Date(dataS.replace(exp, ','));
+    const quantidade = parseInt(quantidadeS);
+    const valor = parseFloat(valorS);
+
+    return new Negociacao(
+      data,
+      quantidade,
+      valor
+    );
   }
 
   get data(): Date {
@@ -24,18 +42,11 @@ export class Negociacao {
     return this.quantidade$ * this.valor$;
   }
 
-  /* metodos static sao metodos da classe, que podem ser acessados sem a necessidade
-  de instanciar a classe antes */
-  public static criaDe(dataS: string, quantidadeS: string, valorS: string): Negociacao {
-    const exp = /-/g;
-    const data = new Date(dataS.replace(exp, ','));
-    const quantidade = parseInt(quantidadeS);
-    const valor = parseFloat(valorS);
-
-    return new Negociacao(
-      data,
-      quantidade,
-      valor
-    );
+  public paraTexto(): string {
+    return `
+      Data: ${this.data},
+      Quantidade: ${this.quantidade},
+      Valor: ${this.valor}
+    `;
   }
 }
