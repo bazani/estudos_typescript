@@ -10,6 +10,7 @@ import { logarTempoDeExecucao } from "../decorators/logar-tempo-de-execucao.js";
 import { DiasDaSemana } from "../enums/dias-da-semana.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { NegociacoesService } from "../services/negociacoes-service.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 export class NegociacaoController {
@@ -17,6 +18,7 @@ export class NegociacaoController {
         this.negociacoes = new Negociacoes();
         this.negociacoesView = new NegociacoesView('#negociacoesView');
         this.mensagemVew = new MensagemView('#mensagemView');
+        this.negociacoesService = new NegociacoesService();
         this.negociacoesView.update(this.negociacoes);
     }
     adiciona() {
@@ -30,22 +32,13 @@ export class NegociacaoController {
         this.atualizaView();
     }
     importaDados() {
-        const api = 'http://localhost:8080/dados';
-        fetch(api)
-            .then(resp => resp.json())
-            .then((dados) => {
-            return dados.map(dado => {
-                return new Negociacao(new Date(), dado.vezes, dado.montante);
-            });
-        })
+        this.negociacoesService
+            .obterNegociacoes()
             .then((dadosNegociacoes) => {
             for (let negocio of dadosNegociacoes) {
                 this.negociacoes.adiciona(negocio);
             }
             this.atualizaView();
-        })
-            .catch(err => {
-            throw new Error(`Não foi possível acessar a api: ${api}`);
         });
     }
     isDiaUtil(data) {
