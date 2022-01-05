@@ -1,0 +1,33 @@
+{
+  "name": "alurabank",
+  "version": "0.0.1",
+  "description": "Projeto de estudos utilizado no curso de TypeScript do Flavio Almeida, na plataforma Alura.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "lite-server --baseDir=app",
+    "start": "concurrently \"npm run watch\" \"npm run server\"",
+    "compile": "tsc",
+    "watch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bazani/estudos_typescript.git"
+  },
+  "keywords": [
+    "typescript",
+    "estudos",
+    "bazani"
+  ],
+  "author": "Mateus Bazani (mrbazani@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bazani/estudos_typescript/issues"
+  },
+  "homepage": "https://github.com/bazani/estudos_typescript#readme",
+  "devDependencies": {
+    "concurrently": "^6.5.1",
+    "lite-server": "^2.6.1",
+    "typescript": "^4.2.2"
+  }
+}
